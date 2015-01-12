@@ -1,0 +1,28 @@
+{
+  "name": "ratefast",
+  "version": "1.0.0",
+  "dependencies": {
+    "angular": "1.2.13",
+    "json3": "~3.2.6",
+    "es5-shim": "~2.1.0",
+    "jquery": "~1.10.2",
+    "bootstrap": "~3.0.3",
+    "angular-resource": "1.2.6",
+    "angular-cookies": "1.2.6",
+    "angular-sanitize": "1.2.6",
+    "angular-route": "1.2.6",
+    "angular-touch": "1.2.7",
+    "angular-rn-carousel" : "0.1.6",
+    "angular-ui-utils": "0.0.4",
+    "angular-bootstrap" :"0.10.0",
+	  "angular-validator": "https://github.com/kelp404/angular-validator.git#~0.1.4"
+  },
+  "devDependencies": {
+    "angular-mocks": "1.2.6",
+    "angular-scenario": "1.2.6",
+    "angular-touch": "1.2.7"   
+  },
+  "resolutions": {
+    "angular": "1.2.7"
+  }
+}

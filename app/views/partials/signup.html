@@ -1,0 +1,124 @@
+<div class="bright">
+    <div class="container">
+        <div class="row">
+
+
+            <form class="form col-sm-12" name='myform' ng-init="step = 1" ng-hide="regMaindiv">
+                <div class="login-sign text-center" style="margin-bottom: 12px;">
+                    <h3>Don't have a account yet? Register with us.</h3>
+                    <!-- <a><span class="glyphicon glyphicon-user"></span></a> -->
+                </div>
+
+                <div ng-show="step==1" ng-init="disable = false">
+                    <div ng-form='step1form' novalidate>
+                        
+                        <div style="clear: both"></div>
+                        <div class="form-group col-sm-4" ng-class="{ 'has-success': step1form.firstname.$valid && submitted,
+                                                    'has-error': step1form.firstname.$invalid && submitted }">
+                            First Name
+
+                            <input type="text" name="firstname" class="form-control capitalize" ng-model="practice.firstname" capitalize-first
+                                placeholder="First Name" required />
+
+                            <p class="help-block" ng-show="step1form.firstname.$error.required && submitted">
+                                Name is required
+
+                            </p>
+                        </div>
+                        <div class="form-group col-sm-4" ng-class="{ 'has-success': step1form.lastname.$valid && submitted,
+                                                    'has-error': step1form.lastname.$invalid && submitted }">
+                            Last Name
+
+                            <input type="text" name="lastname" class="form-control capitalize" ng-model="practice.lastname" capitalize-first
+                                placeholder="Last Name" required />
+
+                            <p class="help-block" ng-show="step1form.lastname.$error.required && submitted">
+                                Name is required
+
+                            </p>
+                        </div>
+
+                        <div class="form-group col-sm-4" ng-class="{ 'has-success': step1form.email.$valid && submitted,
+                                                    'has-error': step1form.email.$invalid && submitted }">
+                            Email
+
+                            <input type="email" name="email" class="form-control" ng-model="practice.email" placeholder="Email"
+                                ng-blur="UniqueEmail(practice.email)" required />
+
+                            <p style="color: #a94442;" class="help-block" ng-show="step1form.email.$error.required && submitted">
+                                Email is required
+
+                            </p>
+
+                            <p class="help-block" ng-show="step1form.email.$error.email && submitted">
+                                Doesn't look like a valid email.
+
+                            </p>
+
+                            <p class="help-block" ng-show="UniqueemailId" style="color: #a94442;">
+                                Email id is already in use.
+
+                            </p>
+                        </div>
+                        <div style="clear: both;"></div>
+
+                        <div class="form-group col-sm-4" ng-class="{ 'has-success': step1form.username.$valid && submitted,
+                                                    'has-error': step1form.username.$invalid && submitted }">
+                            Username
+
+                            <input type="text" name="username" class="form-control" ng-model="practice.username"
+                                placeholder="User Name" numberchar-only="numberchar-only" ng-blur="UniqueUsername(practice.username)" required />
+
+                            <p style="color: #a94442;" class="help-block" ng-show="step1form.username.$error.required && submitted">
+                                User name is required
+
+                            </p>
+
+                            <p style="color: #a94442;" class="help-block" ng-show="Uniqueuser">
+                                User name is already in use.
+
+                            </p>
+                        </div>
+
+                        <div class="form-group col-sm-4" ng-class="{ 'has-success': step1form.password.$valid && submitted,
+                                                    'has-error': step1form.username.$invalid && submitted }">
+                            Password <a popover="Minimum of 8 characters, with at least one capital letter, special character and number."
+                                popover-trigger="mouseenter" class="btn" style="padding: 0px; font-size: 11px; color: red;">Password
+                                Rules
+                            </a>
+                            <input type="password" class="form-control" ng-minlength="8"
+                                ng-pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$/" name="password" required
+                                ng-model="practice.password" placeholder="password" required>
+                            <span class="help-block" style="color: #a94442;" ng-show='step1form.password.$error.pattern'>Do not match with password rule.</span>
+                            <span class="help-block" style="color: #a94442;" ng-show='step1form.password.$error.minlength'>Enter Strong Password.</span>
+                            <span class="help-block" style="color: #a94442;" ng-show="step1form.password.$error.required && submitted">Password Required*</span>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            Confirm Password
+                            <input type="password" class="form-control" name="confirm_password" required ng-model="practice.confirmpassword"
+                                ui-validate=" '$value==practice.password' " ui-validate-watch=" 'practice.password' "
+                                placeholder="confirm password">
+                            <span style="color: #a94442;" ng-show='step1form.confirm_password.$error.validator'>Passwords do not match!</span>
+                            <span style="color: #a94442;" ng-show='practice.password!=practice.confirmpassword'>Passwords do not match!</span>
+                        </div>
+
+                        <div style="clear: both"></div>
+                        <br />
+
+                        <div class="text-center">
+                            <a ng-disabled="disable" ng-click="validateform1(step1form)" class="btn btn-md btn-default">Sign Up</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+<div ng-show="step == 4" class="text-center" style="min-height: 400px;">
+    <h4>You have registered successfully. Please check your email to activate your account.</h4>
+</div>
+
+<div ng-show="haserror" class="has-error" style="text-align: center">
+    <span style="color: #ff0000">{{errors.err}}</span>
+</div>

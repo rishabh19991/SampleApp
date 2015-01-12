@@ -1,0 +1,241 @@
+<div class="practise" ng-controller="UsersCtrl" ng-init="userProfileList(1)">
+    <div class="bright">
+        <section id="header-title" style="margin-bottom: 0;">
+            <div class="container">
+                <div class="row">
+                    <h2 style="text-align: left;">User Profile<span ng-show="section == 3"> - {{updateuser.firstname}}&nbsp;{{updateuser.lastname}}</span></h2>
+                </div>
+            </div>
+        </section>
+        <section class="bar2" data-ng-hide="section == 3">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <ul class="nav navbar-nav menu-view" style="margin-top: 0;">
+                            <li data-ng-class="{active: !listViewEnabled}" class="toolbaritem"><a data-ng-click="section = 1"><span class="glyphicon glyphicon-th-large"></span>&nbsp;Card View</a></li>
+                            <li data-ng-class="{active: listViewEnabled}" class="toolbaritem"><a data-ng-click="section = 2"><span class="glyphicon glyphicon-align-justify"></span>&nbsp;List View</a></li>
+                            <li data-ng-class="{active: listViewEnabled}" class="toolbaritem"><a data-ng-click="section = 4"><span class="glyphicon glyphicon-align-justify"></span>&nbsp;To Do List</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="container" ng-init="section = 1">
+            <div class="row">
+                <div class="col-sm-4" data-ng-repeat="user in allUsersList" ng-show="section==1" ng-init="disable = false">
+                    <div class="card" data-ng-click="updateUser(user)">
+                        <div class="cardHeader">{{user.firstname}}&nbsp;{{user.lastname}}</div>
+                        <div class="cardBody">
+
+                            <div class="clearfix">
+                                <div class="cardBodyLeft">
+                                </div>
+                                <div class="cardBodyRight">
+                                    <div>
+                                        <label>First Name</label>
+                                        : 
+                                            {{user.firstname}}
+                                    </div>
+                                    <div>
+                                        <label>Last Name</label>
+                                        : 
+                                            {{user.lastname}}
+                                    </div>
+                                    <div>
+                                        <label>EmailId</label>
+                                        : 
+                                            {{user.email}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-10" data-ng-show="section == 2">
+                    <table class="table table-striped table-condensed">
+                        <thead>
+                            <tr>
+                                <th data-ng-click="#">Name</th>
+                                <th data-ng-click="#">Email</th>
+                                <th>&nbsp;</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-ng-repeat="user in allUsersList">
+                                <td><a href="#">{{user.firstname}}&nbsp;{{user.lastname}}</a></td>
+                                <td>{{user.email}}</td>
+                                <td>
+                                    <button class="btn btn-info" data-ng-click="updateUser(user)">Update</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-sm-12" ng-show="section == 3" style="margin-top: 25px;">
+                    <tabset>
+                        <tab heading="Update User Profile">
+                            <br />                    
+                            <div ng-form="editUser">
+                                <div class="form-group col-sm-4">
+                                    First Name
+                                    <input type="text" class="form-control" name="firstname" ng-model="updateuser.firstname" ng-disabled="usernameMatch" required />
+                                </div>
+                                <div style="clear: both"></div>
+                                <div class="form-group col-sm-4">
+                                    Last Name
+                                    <input type="text" class="form-control" name="lastname" ng-model="updateuser.lastname" ng-disabled="usernameMatch" required />
+                                </div>
+                                <div style="clear: both"></div>
+                                <div class="form-group col-sm-4">
+                                    Email
+                                <input type="email" class="form-control" name="practiceEmail" id="practiceEmail" ng-model="updateuser.email" ng-disabled="true" />
+                                </div>
+                                <div style="clear: both"></div>
+                                <hr>
+
+                                <div style="clear: both"></div>
+
+                                <div class="text-center">
+                                    <div class="label label-success label-credit" ng-show="updateStatus">
+                                        <span class="glyphicon glyphicon-thumbs-up icon-white"></span>&nbsp;&nbsp;updated!                   
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <button class="btn btn-default" ng-click="userTest()">Back</button>
+                                    <button ng-disabled="!editUser.$valid" ng-hide="usernameMatch" class="btn btn-default" ng-click="saveEditUser()">Update</button>
+                                </div>
+                            </div>                    
+                        </tab>                       
+                    </tabset>
+                </div>
+                <div class="col-sm-12" ng-show="section == 4" style="margin-top: 25px;">
+
+                    <!--<h1>To-do-List</h1>
+                        <input id="new-todo" type="text" ng-model="todoText" size="30"
+                            placeholder="Add new toDo List?" ng-keyup="addTodo()" />
+
+                    <section id="main" style="display: block;">
+                        <div ng-show="isTodo()">
+                            <input id="toggle-all" type="checkbox" ng-model="markAll"
+                                ng-click="toggleMarkAll()" />
+                            <label for="toggle-all">Mark all as complete</label>
+                        </div>
+
+                        <ul id="todo-list" class="unstyled">
+                            <li ng-repeat="todo in todos" ng-dblclick="toggleEditMode()">
+                                <div class="view" ng-keyup="editTodo()">
+                                    <input type="checkbox" ng-model="todo.done" />
+                                    <span class="done-{{todo.done}}">{{todo.text}}</span>
+                                </div>
+                                <input class="edit" type="text" ng-model="todo.text"
+                                    ng-keyup="editOnEnter(todo)" />
+                            </li>
+                        </ul>
+                    </section>-->
+                    <!--<ul class="unstyled">
+                        <li ng-repeat="todo in todos">
+                            <input type="checkbox" ng-model="todo.done">
+                            <span class="done-{{todo.done}}">{{todo.text}}</span>
+                        </li>
+                    </ul>
+                    <form ng-submit="addTodo()">
+                        <input type="text" ng-model="todoText" size="30"
+                            placeholder="add new todo here">
+                        <input class="btn-primary" type="submit" value="add">
+                    </form>-->
+                    <section ng-hide="addEmployee">
+                        <h3 ng-hide="addEmployee">To-Do-List Example using Employee</h3>
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Employee Id</th>
+                                    <th>Employee Name</th>
+                                    <th>Employee Location</th>
+                                    <th>Employee date of birth</th>
+                                    <th>Employee date of joining</th>
+                                    <th>Edit Employee</th>
+                                    <th>Delete Employee</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="employee in employeeList track by $index | orderBy:'empid'">
+                                    <td>{{$index}}</td>
+                                    <td>{{employee.name}}</td>
+                                    <td>{{employee.location}}</td>
+                                    <td>{{employee.dob}}</td>
+                                    <td>{{employee.doj}}</td>
+                                    <td><a ng-click="editEmployee($index)" style="cursor: pointer"><i class="glyphicon glyphicon-pencil"></i></a></td>
+                                    <td><a ng-click="deleteEmployee($index)" style="cursor: pointer"><i class="glyphicon glyphicon-trash"></i></a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <hr />
+                    </section>
+                    
+                    <a class="btn btn-primary btn-lg" ng-hide="addEmployee" ng-click="addEmployee = true">Add New Employee</a>
+                    <section ng-show="addEmployee">
+                        <div class="container">
+                            <h2>New Employee Details</h2>
+
+                            <form name="myForm" role="form" ng-submit="addnewEmployee()" novalidate>
+                                <div class="form-group col-sm-4 clearer">
+                                    <p>
+                                        Employee Name:<br>
+                                        <input type="text" name="name" class="form-control" ng-model="newemployee.name" required>
+                                        <span style="color: red" ng-show="myForm.name.$dirty && myForm.name.$invalid">
+                                            <span ng-show="myForm.name.$error.required">Employee Name is required.</span>
+                                        </span>
+                                    </p>
+                                </div>
+                                <div class="form-group col-sm-4 clearer" style="clear: both">
+                                    <p>
+                                        Employee Location:<br>
+                                        <input type="text" name="location" class="form-control" ng-model="newemployee.location" required>
+                                        <span style="color: red" ng-show="myForm.location.$dirty && myForm.location.$invalid">
+                                            <span ng-show="myForm.location.$error.required">Employee Location is required.</span>
+                                        </span>
+                                    </p>
+                                </div>
+                                <div class="form-group col-sm-4 clearfix" style="clear: both">
+                                    <p>
+                                        Email:<br>
+                                        <input type="email" name="email" class="form-control" ng-model="newemployee.email" required>
+                                        <span style="color: red" ng-show="myForm.email.$dirty && myForm.email.$invalid">
+                                            <span ng-show="myForm.email.$error.required">Email is required.</span>
+                                            <span ng-show="myForm.email.$error.email">Invalid email address.</span>
+                                        </span>
+                                    </p>
+                                </div>
+                                <div class="form-group col-sm-4 clearer" style="clear: both">
+                                    <p>
+                                        Employee DOB:<br>
+                                        <input type="date" name="dob" class="form-control" ng-model="newemployee.dob" required>
+                                        <span style="color: red" ng-show="myForm.dob.$dirty && myForm.dob.$invalid">
+                                            <span ng-show="myForm.dob.$error.required">Employee Date of birth is required.</span>
+                                        </span>
+                                    </p>
+                                </div>
+                                <div class="form-group col-sm-4 clearer" style="clear: both">
+                                    <p>
+                                        Employee date of joining:<br>
+                                        <input type="date" name="doj" class="form-control" ng-model="newemployee.doj" required>
+                                        <span style="color: red" ng-show="myForm.doj.$dirty && myForm.doj.$invalid">
+                                            <span ng-show="myForm.dob.$error.required">Employee Date of joining is required.</span>
+                                        </span>
+                                    </p>
+                                </div>
+                                <div class="form-group" style="clear: both">
+                                    <p>
+                                        <input type="submit" class="btn btn-default" ng-disabled="myForm.name.$dirty && myForm.name.$invalid ||
+   myForm.location.$dirty && myForm.location.$invalid || myForm.email.$dirty && myForm.email.$invalid || myForm.dob.$dirty && myForm.dob.$invalid || myForm.doj.$dirty && myForm.doj.$invalid">
+                                    </p>
+                                </div>
+                            </form>
+                        </div>
+                    </section>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
